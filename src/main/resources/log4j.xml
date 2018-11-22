@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+    <!--
+        Log4j由三个重要的组成构成：日志记录器(Loggers)，输出端(Appenders)和日志格式化器(Layout)
+        Logger对象的获得或创建
+           Logger.getRootLogger();//总是存在，是所有Log的父节点。
+           Logger.getLogger(Class clazz);//名字以 '.' 分隔，例如x.y是x.y.z的父节点。
+
+    -->
+
+    <!-- 输出到控制台 -->
+    <appender name="STDOUT" class="org.apache.log4j.ConsoleAppender">
+        <param name="Threshold" value="debug"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d %-5p [%t] %C{2} (%F:%L) - %m%n"/>
+        </layout>
+    </appender>
+
+    <!-- 每天一个文件 -->
+    <appender name="dailyRollingFile" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="Threshold" value="debug"/>
+        <param name="ImmediateFlush" value="true"/>
+        <param name="File" value="/home/tomcat/logs/tobacco-web-app.log"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d %-5p [%t] %C{2} (%F:%L) - %m%n"/>
+        </layout>
+    </appender>
+    <appender name="dailyRollingFileError" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="Threshold" value="error"/>
+        <param name="ImmediateFlush" value="true"/>
+        <param name="File" value="/home/tomcat/logs/tobacco-web-app-error.log"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d %-5p [%t] %C{2} (%F:%L) - %m%n"/>
+        </layout>
+    </appender>
+    <!-- 达到指定大小切换文件 -->
+    <appender name="rollingFile" class="org.apache.log4j.RollingFileAppender">
+        <param name="File" value="/home/tomcat/logs/tobacco-web-app.log"/>
+        <param name="ImmediateFlush" value="true"/>
+        <param name="Threshold" value="debug"/>
+        <param name="Append" value="true"/>
+        <param name="MaxFileSize" value="30KB"/>
+        <param name="MaxBackupIndex" value="100"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d %-5p [%t] %C{2} (%F:%L) - %m%n"/>
+        </layout>
+    </appender>
+
+    <!-- 输出到文件 -->
+    <appender name="file" class="org.apache.log4j.FileAppender">
+        <param name="File" value="/home/tomcat/logs/tobacco-web-app.log"/>
+        <param name="Threshold" value="debug"/>
+        <!--<param username="Append" value="false" />-->
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%t %-5p %c{2} - %m%n"/>
+        </layout>
+    </appender>
+    <appender name="errorFile" class="org.apache.log4j.FileAppender">
+        <param name="File" value="/home/tomcat/logs/tobacco-web-app-error.log"/>
+        <param name="Threshold" value="error"/>
+        <!--<param username="Append" value="false" />-->
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%t %-5p %c{2} - %m%n"/>
+        </layout>
+    </appender>
+
+<!--    <category username="org.apache.log4j.xml">
+        <priority value="info" />
+        <appender-ref ref="" />
+    </category>-->
+
+    <!--
+        以 Logger.getLogger(Class clazz); 方式获取的日志记录器将继承rootLogger
+        日志将输出到其自身及其所有祖先的 appender
+     -->
+<!--    <logger nacn.ffcs.mapperper.dao" additivity="true">
+        <level value="info"/>
+        <appender-ref ref="STDOUT"/>
+    </logger>-->
+
+
+    <category name="com.example.demo">
+        <level value="DEGUG"></level>
+        <appender-ref ref="STDOUT"></appender-ref>
+        <appender-ref ref="dailyRollingFile"></appender-ref>
+        <appender-ref ref="dailyRollingFileError"></appender-ref>
+    </category>
+
+    <!-- 根，appender内指定的日志级别优先于 根设置的级别。 -->
+    <root>
+        <priority value="warn"/>
+    </root>
+
+</log4j:configuration>
