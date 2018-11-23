@@ -43,7 +43,7 @@ public class Swagger2 {
          * 并产生文档内容（除了被@ApiIgnore指定的请求）。
          **/
         return new ApiInfoBuilder()
-                .title("小可爱我第一次使用Swagger2构建RESTful APIs")
+                .title("Swagger2构建RESTful APIs")
                 .description("今天心情美美哒 http://com.example.demo/")
                 .termsOfServiceUrl("http://com.example.demo/")
                 .contact("linxq")
