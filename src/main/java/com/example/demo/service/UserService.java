@@ -34,4 +34,20 @@ public class UserService {
     public List<User> findUserInfos(){
         return userMapper.findUserInfos();
     }
+
+    public long insertUserInfo(User user) {
+        return userMapper.insertUserInfo(user);
+    }
+
+    public User getInfoById(Long id) {
+        return userMapper.getInfoById(id);
+    }
+
+    public long updateUserInfo(User user) {
+        return userMapper.updateUserInfo(user);
+    }
+
+    public long deleteUserInfo(Long id) {
+        return userMapper.deleteUserInfo(id);
+    }
 }

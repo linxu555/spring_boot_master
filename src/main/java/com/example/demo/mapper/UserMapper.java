@@ -37,4 +37,12 @@ public interface UserMapper {
      */
     @Insert("INSERT INTO user(name,age) VALUES (#{name},#{age})")
     int insert(@Param("name") String name, @Param("age") Integer age);
+
+    long insertUserInfo(@Param("user") User user);
+
+    User getInfoById(@Param("id")Long id);
+
+    long updateUserInfo(@Param("user") User user);
+
+    long deleteUserInfo(@Param("id") Long id);
 }
